@@ -1,0 +1,158 @@
+from: archivo1.js import [claseImportada, metodoImportado]
+from: archivo2.cs import []
+
+main {
+    
+    int var1, var2;
+    string var9 = "for cadena", var4, var5 = "valor5", var8 = "45";
+    boolean var6 = true, var7;
+     
+    var1 = 3;
+    var2 = toInt: var8;
+    var4 = toUpper: "valorcuatro";
+    var4 = toLower: "CADENA";
+    var1 = toString: var2;
+    var5 = trim.var5: "or5";
+    var5 = replace: "a", "b";
+    var7 = startsWith.var1["x"]
+    var7 = endsWith.var1["e"]
+    var5 = concat(var1, var2)
+
+    object obj1 = new clasePadre: var1, var2;
+
+    for i++: 0 < 10 {
+
+        var1 = i;
+    }
+    
+    while: var1 > var2 {
+
+        var7 = false;
+    }
+
+    foreach : int a, NombreArray {
+
+        log: "Mensaje";
+    }
+
+    if : var9 == var5 {
+
+        log: var8;
+    }
+
+    switch : var1
+        default
+            log: "mensaje";
+            break
+        
+        case = 1:
+            log: "mensaje";
+            break
+
+        case = 2:
+            log: "mensaje";
+            break
+    
+    log: "cadena";
+    prompt: var4;
+
+    try {
+
+    }
+    catch e : Excepcion1, Excepcion2 {
+
+    }
+
+    []int NombreArray = new [5]int;
+    []int NombreArray = new [5]int {1, 2, 3, 4, 5};
+    []int NombreArray = {4, 6, 7};
+    []int NombreArray;
+
+    export []
+    export [met1, met2]
+
+    dictionary diccionario1 = (
+        int parametro1 = 1;
+        string parametro2 = "cadena";
+    )
+
+    CREATE DATABASE: NOMBREBD;
+
+    CREATE TABLE NOMBRETABLA (
+        c1 SMALLINT,
+        c2 DATE,
+        c3 MONEY
+    )
+
+    ReadKey;
+
+    push.array1: "cadenaarreglo1";
+    unshift.array1: "cadenaarreglo2";
+
+    pop.array1;
+    shift.array1;
+
+    DROP DATABASE: NOMBREBD;
+
+    USE: NOMBREBD;
+
+    function Metodo1[parametro1, parametro2].obj1;
+    function Metodo2[]: var2;
+
+    SELECT []: NOMBRETABLA;
+    SELECT [c1, c2]: NOMBRETABLA;
+}
+
+class clasePadre: public {
+
+    /*Esto es un for comentario*/
+
+    int x, y = 10, z = 5;
+    string cad1 = "cadena1", cad2 = null;
+
+    def int Metodo1 [int par1, string par2 : public, static] {
+
+        int valor = 8;
+
+        return valor
+    }
+
+    def void Metodo2 [: public] {
+
+        log: "Mensaje";
+    }
+
+    /*Esto es un comentario*/
+}
+
+class claseHija[clasePadre]: public {
+
+    /*Esto es un comentario*/
+
+    def string Metodo3 [string par1, boolean par2 : public, static] {
+
+        string valorRetorno = "retorno";
+
+        return valorRetorno
+    }
+
+    int a, b, c = 23;
+    string cad3, cad4 = "cadena4";
+
+    def void Metodo4 [char caracter1, long numero1: private, final] {
+
+        string var1;
+
+        log: "Ingresa";
+        prompt: var1;
+        log: "Cadena", var1;
+    }
+
+}
+
+def boolean Metodo5 [double a, float b : public, native] {
+
+    int f = 3;
+
+    return true
+}

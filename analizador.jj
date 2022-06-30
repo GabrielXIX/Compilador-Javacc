@@ -1,0 +1,671 @@
+/*Analizador Lexico y Sintactico (Lenguajes y automatas)*/
+/*Dueñas Nuñez Alan Gabriel*/
+/*Garcia Salas Daniel Alberto*/
+
+options {
+	STATIC = false;
+}
+
+PARSER_BEGIN(analizador)
+import java.util.ArrayList;
+
+class analizador {
+
+	public static ArrayList<String> ids = new ArrayList<String>();
+
+	public static void main(String[] args) throws ParseException {	
+		try {
+			analizador obj1 = new analizador(System.in); //Instancia
+			obj1.Programa(); //Llamado a funcion inicial programa
+			System.out.println("Se ha analizado el codigo con exito.");
+		}
+		catch(ParseException e){
+			System.out.println(e.getMessage());
+			System.out.println("Error!");
+		}
+	}
+}
+PARSER_END(analizador)
+
+SKIP:
+{
+	  " "
+	| "\n"
+	| "\t"
+	| "\r"
+}
+
+TOKEN: 
+{
+	<MAIN: "main">{System.out.println("MAIN");}
+
+	|<TIPO_DATO: ("boolean" | "char" | "byte" | "const" | "double" | "float"
+		| "int"  | "string" | "let" | "long" | "short" | "var" | "TINYINT" | "SMALLINT" | "BIGINT"
+		| "REAL" | "MONEY" | "SMALLMONEY" | "DATE" | "TIME" | "DATETIME" | "SINGLE"
+		| "DECIMAL" | "LONGTEXT")>{System.out.println("TIPO_DATO -> " + image);}
+
+	| <FOR_LOOP: ("for")>{System.out.println("FOR_LOOP");}
+
+	| <WHILE_LOOP: ("while")>{System.out.println("WHILE_LOOP");}
+
+	| <FOREACH_LOOP: ("foreach")>{System.out.println("FOREACH_LOOP");}
+
+	| <MOD_ACCESO: ("protected" | "public" | "private")>{System.out.println("MOD_ACCESO -> " + image);}
+
+	| <MOD_CLASE: "abstract">{System.out.println("MOD_CLASE");}
+
+	| <EXCEPCION: "try">{System.out.println("EXCEPCION");}
+
+	| <LANZAR_EXCEPCION: ("throw" | "throws" 
+		| "raise" | "assert")>{System.out.println("LANZAR_EXCEPCION -> " + image);}
+
+	| <CON_EXCEPCION: ("catch" | "finally")>{System.out.println("CON_EXCEPCION -> " + image);}
+
+	| <DEF_CLASE: "class">{System.out.println("DEF_CLASE");}
+
+	| <REF_OBJ: "object">{System.out.println("REF_OBJ");}
+
+	| <INSTANCIA: "new">{System.out.println("INSTANCIA");}
+
+	| <PREG_IF: ("if")>{System.out.println("PREG_IF");}
+
+	| <PREG_SWITCH: ("switch")>{System.out.println("PREG_SWITCH");}
+
+	| <CON_IF: "else">{System.out.println("CON_IF");}
+
+	| <CASO: "case">{System.out.println("CASO");}
+
+	| <CASO_PRE: "default">{System.out.println("CASO_PRE");}
+
+	| <DEF_METODO: ("def")>{System.out.println("DEF_METODO");}
+
+	| <LLAMAR_METODO: ("function")>{System.out.println("LLAMAR_METODO");}
+
+	| <MOD_METODO: ("native" | "final" | "static"
+		| "async")>{System.out.println("MOD_METODO -> " + image);}
+
+	| <VALOR: ("true" | "null" | "false")>{System.out.println("VALOR -> " + image);}
+
+	| <SALTO: ("goto" | "continue")>{System.out.println("SALTO -> " + image);}
+	
+	| <ROMPER: "break">{System.out.println("ROMPER");}
+
+	| <RETORNAR: "return">{System.out.println("RETORNAR");}
+
+	| <OP_LOGICO: ("!" | "&&" | "||")>{System.out.println("OP_LOGICO -> " + image);}
+
+	| <OP_UNARIO: ("--" | "++" | "**")>{System.out.println("OP_UNARIO -> " + image);}
+
+	| <OP_ARITMETICO: ("+" | "-" | "*" 
+		| "/" | "%")>{System.out.println("OP_ARITMETICO -> " + image);}
+
+	| <OP_COMPARACION: ("==" | "===" | "!=" 
+		| "!==" | "<" | ">" | "<=" | ">=")>{System.out.println("OP_COMPARACION -> " + image);}
+
+	| <OP_ALTERACION: ("+=" | "-=" 
+		| "*=" | "/=" | "%=" | "**=")>{System.out.println("OP_ALTERACION -> " + image);}
+
+	| <OP_ASIGNACION: "=">{System.out.println("OP_ASIGNACION");}
+
+	| <OP_RETORNO_NULO: "void">{System.out.println("OP_RETORNO_NULO");}
+
+	| <RETORNO_TIPO: "typeOf">{System.out.println("RETORNO_TIPO");}
+
+	| <ELIMINACION: "delete">{System.out.println("ELIMINACION");}
+
+	| <OP_RELACIONAL: ("instanceOf" | "in")>{System.out.println("OP_RELACIONAL -> " + image);}
+
+	| <IMPORTACION: "import">{System.out.println("IMPORTACION");}
+
+	| <EXPORTACION: "export">{System.out.println("EXPORTACION");}
+
+	| <REF_ARCHIVO: "from">{System.out.println("REF_ARCHIVO");}
+
+	| <PUNTO_COMA: ";">{System.out.println("PUNTO_COMA");}
+
+	| <DOS_PUNTOS: ":">{System.out.println("DOS_PUNTOS");}
+
+	| <COMA: ",">{System.out.println("COMA");}
+
+	| <PUNTO: ".">{System.out.println("PUNTO");}
+	
+	| <LONGITUD: ("length" | "count" | "range")>{System.out.println("LONGITUD -> " + image);}
+
+	| <CONV_CADENA: "toString">{System.out.println("CONV_CADENA");}
+
+	| <CONV_ENTERO: "toInt">{System.out.println("CONV_ENTERO");}
+
+	| <MANIPULACION_CADENA: ("substring" | "slice" 
+		| "split" | "title" | "eval")>{System.out.println("MANIPULACION_CADENA -> " + image);}
+
+	| <REEMPLAZAR: "replace">{System.out.println("REEMPLAZAR");}
+
+	| <MAYUS_MINUS: ("toLower" | "toUpper")>{System.out.println("MAYUS_MINUS -> " + image);}
+
+	| <RECORTAR: ("trim" | "trimStart" | "trimEnd")>{System.out.println("RECORTAR -> " + image);}
+
+	| <CONCATENAR: "concat">{System.out.println("CONCATENAR");}
+
+	| <FUNCION_BUSQUEDA: ("indexOf" | "lastIndexOf" | "match" 
+		| "matchAll" | "contains")>{System.out.println("FUNCION_BUSQUEDA -> " + image);}
+
+	| <EMPIEZA_TERMINA: ("startsWith" | "endsWith")>{System.out.println("EMPIEZA_TERMINA -> " + image);}
+
+	| <MANIPULACION_ARR: ("reduce" | "sort" 
+		| "reverse" | "extend")>{System.out.println("MANIPULACION_ARR -> " + image);}
+
+	| <INGRESO_ARR: ("push" | "unshift")>{System.out.println("INGRESO_ARR -> " + image);}
+
+	| <ELIM_ARR: ("pop" | "shift")>{System.out.println("ELIM_ARR -> " + image);}
+
+	| <FUNCION_ARR: ("filter" | "map")>{System.out.println("FUNCION_ARR -> " + image);}
+
+	| <VERIFICACION_ARR: ("some" | "every")>{System.out.println("VERIFICACION_ARR -> " + image);}
+
+	| <PAR_IZQ: "(">{System.out.println("PAR_IZQ");}
+
+	| <PAR_DER: ")">{System.out.println("PAR_DER");}
+
+	| <COR_IZQ: "[">{System.out.println("COR_IZQ");}
+
+	| <COR_DER: "]">{System.out.println("COR_DER");}
+
+	| <LLAVE_IZQ: "{">{System.out.println("LLAVE_IZQ");}
+
+	| <LLAVE_DER: "}">{System.out.println("LLAVE_DER");}
+
+	| <HERENCIA: ("extends" | "super")>{System.out.println("HERENCIA -> " + image);}
+
+	| <POLIMORFISMO: "implements">{System.out.println("POLIMORFISMO");}
+
+	| <ASINCRONICIDAD: ("await" | "promise" | "yield")>{System.out.println("ASINCRONICIDAD -> " + image);}
+
+	| <MODIFICADOR_VARIABLE: ("volatile" | "transient" 
+		| "global" | "nonlocal")>{System.out.println("MODIFICADOR_VARIABLE -> " + image);}
+
+	| <DEPURAR: "debugger">{System.out.println("DEPURAR");}
+
+	| <ENTRADA_DATOS: "prompt">{System.out.println("ENTRADA_DATOS");}
+
+	| <CONSOLA: "console">{System.out.println("CONSOLA");}
+
+	| <SALIDA_DATOS: "log">{System.out.println("SALIDA_DATOS");}
+
+	| <LECTURA_TECLA: "ReadKey">{System.out.println("LECTURA_TECLA");}
+
+	| <DICCIONARIO: "dictionary">{System.out.println("DICCIONARIO");}
+
+	| <SISTEMA: "system">{System.out.println("SISTEMA");}
+
+	| <USAR: "USE">{System.out.println("USAR");}
+
+	| <ORDENAR: "ORDER">{System.out.println("ORDENAR");}
+
+	| <TIPO_ORDENAMIENTO: ("ASC" | "DESC")>{System.out.println("TIPO_ORDENAMIENTO -> " + image);}
+
+	| <ELIMINAR: "REMOVE">{System.out.println("ELIMINAR");}
+
+	| <OBJ_BASE: "DATABASE">{System.out.println("OBJ_BASE");}
+
+	| <OBJ_TABLA: "TABLE">{System.out.println("OBJ_TABLA");}
+
+	| <CREACION_OBJ: "CREATE">{System.out.println("CREACION_OBJ");}
+
+	| <ELIM_OBJ: "DROP">{System.out.println("ELIM_OBJ");}
+
+	| <ALTER_OBJ: "ALTER">{System.out.println("ALTER_OBJ");}
+
+	| <MANIPULACION_DATOS: ("INSERT" | "UPDATE" | "DELETE")>{System.out.println("MANIPULACION_DATOS -> " + image);}
+
+	| <SELECCION: "SELECT">{System.out.println("SELECCION");}
+
+	| <DIRECCION_COMBINACION_COLUMNA: ("INNER" | "LEFT" 
+		| "RIGHT")>{System.out.println("DIRECCION_COMBINACION_COLUMNA -> " + image);}
+
+	| <COMBINACION_COLUMNAS: ("JOIN")>{System.out.println("COMBINACION_COLUMNAS");}
+
+	| <FUNCIONES_CADENA_SQL: ("ASCII" | "CONCAT" | "CONCAT_WS" 
+		| "FIELD" | "FIND_IN_SET" | "FORMAT" | "INSTR" 
+		| "LENGTH" | "LOCATE" | "LOWER" | "LPAD" | "LTRIM" 
+		| "MID" | "POSITION" | "REPEAT" | "REPLACE" | "REVERSE" 
+		| "RPAD" | "RTRIM" | "SPACE" | "STRCMP" | "SUBSTRING" 
+		| "SUBSTRING_INDEX" | "TRIM" | "UPPER")>{System.out.println("FUNCIONES_CADENA_SQL -> " + image);}
+
+	| <FUNCIONES_NUMERICA_SQL: ("ABS" | "ACOS" | "ASIN" | "ATAN" 
+		| "ATAN2" | "AVG" | "CEILING" | "COS" | "COT" 
+		| "COUNT" | "DEGREES" | "DIV" | "EXP" | "FLOOR" 
+		| "GREATEST" | "LEAST" | "LN" | "LOG" | "LOG10" 
+		| "LOG2" | "MAX" | "MIN" | "MOD" | "PI" 
+		| "POWER" | "RADIANS" | "ROUND" | "SIGN" | "SIN" 
+		| "SQRT" | "SUM" | "TAN" | "TRUNCATE")>{System.out.println("FUNCIONES_NUMERICA_SQL -> " + image);}
+
+	| <FUNCIONES_FECHA_SQL: ("ADDDATE" | "ADDTIME" | "CURRENT_DATE" 
+		| "CURRENT_TIME" | "CURRENT_TIMESTAMP" | "DATEDIFF" 
+		| "DATE_FORMAT" | "DATE_SUB" | "DAY" | "DAYNAME" 
+		| "DAYOFWEEK" | "DAYOFYEAR" | "EXTRACT" | "FROM_DAYS" 
+		| "HOUR" | "LAST_DAY" | "MAKEDATE" | "MAKETIME" 
+		| "MICROSECOND" | "MINUTE" | "MONTH" | "MONTHNAME" 
+		| "NOW" | "PERIOD_ADD" | "QUARTER" | "SECOND" 
+		| "SEC_TO_TIME" | "STR_TO_DATE" | "SUBDATE" | "SUBTIME" 
+		| "TIME_FORMAT" | "TIME_TO_SEC" | "TIMEDIFF" | "TIMESTAMP" 
+		| "TO_DAYS" | "WEEK" | "WEEKOFYEAR" 
+		| "YEAR" | "YEARWEEK")>{System.out.println("FUNCIONES_FECHA_SQL -> " + image);}
+
+	| <FUNCIONES_AVANZADAS_SQL: ("BIN" | "BINARY" | "CAST" | "COALESCE" | "CONNECTION_ID" 
+		| "CONV" | "CONVERT" | "CURRENT_USER" | "IFNULL" | "ISNULL" 
+		| "LAST_INSERT_ID" | "NULLIF" | "SESSION_USER" 
+		| "USER" | "VERSION")>{System.out.println("FUNCIONES_AVANZADAS_SQL -> " + image);}
+}
+
+TOKEN: 
+{
+	//letra
+	<#LETRA: ["a"-"z", "A"-"Z"]>
+
+	//digito
+	| <#DIGITO: ["0"-"9"]>
+
+	//numero
+	| <NUM: (<DIGITO>)+>{System.out.println("NUMERO -> " + image);}
+
+	//identificador
+	| <ID: <LETRA>(<LETRA>|<DIGITO>)*>{System.out.print("ID -> " + image + ", POSICION: ");}
+
+	//cadena
+	| <CADENA: "\""(~["\"","\'"])*"\"">{System.out.println("CADENA");}
+
+	| <COMENTARIO: "/*"(~["\n"])*"*/">{System.out.println("COMENTARIO");}
+}
+
+/*Fin Lexico*/ 
+
+void Programa():{}
+{
+	Simbolo_inicial()<EOF>
+}
+
+//Simbolo inicial
+void Simbolo_inicial():{}
+{
+	(Librerias())*Principal()(Clases() | Metodos())*
+}
+
+//Librerias
+void Librerias():{}
+{
+	<REF_ARCHIVO><DOS_PUNTOS>Archivo()<IMPORTACION><COR_IZQ>Ids()<COR_DER>
+}
+void Archivo():{}
+{
+	Id()<PUNTO>Id()
+}
+
+void Id():
+{ 
+	Token tk = null;
+}
+{
+	tk = <ID>
+	{
+		if(!ids.contains(tk.image)){
+
+			ids.add(tk.image);
+			System.out.println(ids.indexOf(tk.image));	
+		}
+		else {
+			System.out.println(ids.indexOf(tk.image));
+		}
+	}
+}
+
+//main
+void Principal():{}
+{
+	<MAIN><LLAVE_IZQ>Instrucciones()<LLAVE_DER>
+}
+
+//Clases
+void Clases():{}
+{
+	<DEF_CLASE>Id()(ClaseNormal() | ClaseHeredada())
+}
+
+void InteriorCLase():{}
+{
+	(<COMENTARIO> | def_dato() | inicializar_var() | Metodos())*
+}
+
+void ClaseNormal():{}
+{	
+	<DOS_PUNTOS><MOD_ACCESO><LLAVE_IZQ>InteriorCLase()<LLAVE_DER>
+}
+
+//Herencia
+void ClaseHeredada():{}
+{
+	<COR_IZQ>Id()<COR_DER><DOS_PUNTOS><MOD_ACCESO><LLAVE_IZQ>InteriorCLase()<LLAVE_DER>
+}
+
+//Objetos
+void objetos():{}
+{
+	(<REF_OBJ>Id()<OP_ASIGNACION><INSTANCIA>Id()<DOS_PUNTOS>Ids()<PUNTO_COMA>)
+}
+
+//Metodos
+void Metodos():{}
+{
+	<DEF_METODO>(MetodoConRetorno() | MetodoSinRetorno())
+}
+void MetodoConRetorno():{}
+{
+	<TIPO_DATO>Id()<COR_IZQ>Parametros()<DOS_PUNTOS><MOD_ACCESO>(<COMA><MOD_METODO>)?<COR_DER>
+	<LLAVE_IZQ>Instrucciones()<RETORNAR>vars()<LLAVE_DER>
+}
+void MetodoSinRetorno():{}
+{
+	<OP_RETORNO_NULO>Id()<COR_IZQ>Parametros()<DOS_PUNTOS><MOD_ACCESO>(<COMA><MOD_METODO>)?<COR_DER>
+	<LLAVE_IZQ>Instrucciones()<LLAVE_DER>
+}
+void Parametros():{}
+{
+	(<TIPO_DATO>Id()MasParametros())?
+}
+void MasParametros():{}
+{
+	(<COMA><TIPO_DATO>Id())*
+}
+
+//for
+void ciclo_for():{}
+{
+	(<FOR_LOOP>Id()incredecre()<DOS_PUNTOS>(Id() | <NUM>)<OP_COMPARACION>(Id() | <NUM>)<LLAVE_IZQ>Instrucciones()<LLAVE_DER>)
+}
+void incredecre():{}
+{
+	((<OP_ARITMETICO><NUM>) | <OP_UNARIO>)
+}
+
+//while
+void ciclo_while():{}
+{
+	(<WHILE_LOOP><DOS_PUNTOS>Id()<OP_COMPARACION>vars()<LLAVE_IZQ>Instrucciones()<LLAVE_DER>)
+}
+
+//foreach
+void ciclo_foreach():{}
+{
+	(<FOREACH_LOOP><DOS_PUNTOS><TIPO_DATO>Id()<COMA>Id()<LLAVE_IZQ>Instrucciones()<LLAVE_DER>)
+}
+
+//switch
+void pregunta_switch():{}
+{
+	(<PREG_SWITCH><DOS_PUNTOS>Id()casoprede()<CASO><OP_ASIGNACION>vars()<DOS_PUNTOS>Instrucciones()<ROMPER>mascasos())
+}
+void casoprede():{}
+{
+	(<CASO_PRE>Instrucciones()<ROMPER>)?
+}
+void mascasos():{}
+{
+	(<CASO><OP_ASIGNACION>vars()<DOS_PUNTOS>Instrucciones()<ROMPER>)*
+}
+
+//if
+void pregunta_if():{}
+{
+	(<PREG_IF><DOS_PUNTOS>Id()<OP_COMPARACION>vars()<LLAVE_IZQ>Instrucciones()<LLAVE_DER>)
+}
+
+//excepciones
+void excepciones():{}
+{
+	(<EXCEPCION><LLAVE_IZQ>Instrucciones()<LLAVE_DER><CON_EXCEPCION>Id()<DOS_PUNTOS>Id()MasIds()<LLAVE_IZQ>Instrucciones()<LLAVE_DER>)
+}
+
+//salida de datos
+void impresiones():{}
+{
+	(<SALIDA_DATOS><DOS_PUNTOS>(<CADENA> | Id())mas_salidas()<PUNTO_COMA>)
+}
+void mas_salidas():{}
+{
+	(<COMA>(<CADENA> | Id()))*
+}
+
+//entrada de datos
+void escribir():{}
+{
+	(<ENTRADA_DATOS><DOS_PUNTOS>Id()<PUNTO_COMA>)
+}
+
+//arreglos
+void arreglos():{}
+{
+	(<COR_IZQ><COR_DER><TIPO_DATO>Id()distinformas()<PUNTO_COMA>)
+}
+void distinformas():{}
+{
+	(<OP_ASIGNACION> (instaciacion() | valores()))?
+}
+void instaciacion():{}
+{
+	(<INSTANCIA><COR_IZQ>espacios()<COR_DER><TIPO_DATO>)(valores())?
+}
+void valores():{}
+{
+	(<LLAVE_IZQ>val()<LLAVE_DER>)
+}
+void val():{}
+{
+	((<NUM>(<COMA><NUM>)*) | (<CADENA>(<COMA><CADENA>)*))
+}
+void espacios():{}
+{
+	(<NUM>)?
+}
+
+//exportaciones
+void exportaciones():{}
+{
+	(<EXPORTACION><COR_IZQ>Ids()<COR_DER>)
+}
+
+//diccionario
+void diccionario():{}
+{
+	(<DICCIONARIO>Id()<OP_ASIGNACION><PAR_IZQ>Llaves()<PAR_DER>)
+}
+void Llaves():{}
+{
+	(<TIPO_DATO>Id()<OP_ASIGNACION>vars()<PUNTO_COMA>MasLlaves())
+}
+void MasLlaves():{}
+{
+	(<TIPO_DATO>Id()<OP_ASIGNACION>vars()<PUNTO_COMA>)*
+}
+
+//Declaracion de una variable
+void def_dato():{}
+{
+	<TIPO_DATO>Id()asignacion_valor()otros_ids()<PUNTO_COMA>
+}
+void asignacion_valor():{}
+{
+	(<OP_ASIGNACION>vars())?
+}
+void otros_ids():{}
+{
+	(<COMA>Id()asignacion_valor())*
+}
+
+//Funcion concatenar
+void funcion_concatenar():{}
+{
+	<CONCATENAR><PAR_IZQ>Id()<COMA>Id()MasIds()<PAR_DER>
+}
+
+//Funcion conversion a entero
+void funcion_conv_entero():{}
+{
+	<CONV_ENTERO><DOS_PUNTOS>(Id() | <CADENA>)<PUNTO_COMA>
+}
+
+//Funcion conversion a string
+void funcion_conv_cadena():{}
+{
+	<CONV_CADENA><DOS_PUNTOS>(Id() | <NUM>)<PUNTO_COMA>
+}
+
+//Funcion recortar
+void funcion_recortar():{}
+{
+	<RECORTAR><PUNTO>Id()<DOS_PUNTOS><CADENA><PUNTO_COMA>
+}
+
+//Lectura de presionar tecla
+void detecta_tecla():{}
+{
+	<LECTURA_TECLA><PUNTO_COMA>
+}
+
+//Ingresar en arreglo
+void ingreso_a_arreglo():{}
+{
+	<INGRESO_ARR><PUNTO>Id()<DOS_PUNTOS>(<CADENA> | <NUM>)<PUNTO_COMA>
+}
+
+//Eliminar de arreglo
+void elim_de_arreglo():{}
+{
+	<ELIM_ARR><PUNTO>Id()<PUNTO_COMA>
+}
+
+//Empieza o termina con cadena
+void emp_term():{}
+{
+	<EMPIEZA_TERMINA><PUNTO>Id()<COR_IZQ><CADENA>MasCadenas()<COR_DER>
+}
+void MasCadenas():{}
+{
+	(<COMA><CADENA>)*
+}
+
+//Reemplazar cadena
+void reemplazo():{}
+{
+	<REEMPLAZAR><DOS_PUNTOS><CADENA><COMA><CADENA><PUNTO_COMA>
+}
+
+//Conversion a mayusculas o minusculas
+void upper_lower():{}
+{
+	<MAYUS_MINUS><DOS_PUNTOS>(Id() | <CADENA>)<PUNTO_COMA>
+}
+
+//Llamada a metodo
+void llamada_metodo():{}
+{
+	<LLAMAR_METODO>Id()<COR_IZQ>(vars()MasVars())?<COR_DER>
+	(<PUNTO>Id())?(<DOS_PUNTOS>(<TIPO_DATO>)?Id())?<PUNTO_COMA>
+}
+
+//Inicializacion de variables
+void inicializar_var():{}
+{
+	Id()<OP_ASIGNACION>(vars()<PUNTO_COMA> | 
+	(funcion_concatenar() | funcion_conv_entero() 
+	| funcion_conv_cadena() | upper_lower() 
+	| funcion_recortar() | emp_term() | reemplazo()))
+}
+
+//Creacion de base de datos
+void creacion_base():{}
+{
+	<OBJ_BASE><DOS_PUNTOS>Id()<PUNTO_COMA>
+}
+
+//creacion de tabla
+void creacion_tabla():{}
+{
+	(<OBJ_TABLA>Id()<PAR_IZQ>campos()<PAR_DER>)
+}
+void campos():{}
+{
+	(Id()<TIPO_DATO>mas_campos())
+}
+void mas_campos():{}
+{
+	(<COMA>Id()<TIPO_DATO>)*
+}
+
+//Usar base de datos
+void usar_base():{}
+{
+	<USAR><DOS_PUNTOS>Id()<PUNTO_COMA>
+}
+
+//Seleccion de registros
+void select_reg():{}
+{
+	<SELECCION><COR_IZQ>(Id()MasIds())?<COR_DER><DOS_PUNTOS>Id()<PUNTO_COMA>
+}
+
+//Eliminar tabla o base
+void elim_tabla_base():{}
+{
+	<ELIM_OBJ>(<OBJ_BASE> | <OBJ_TABLA>)<DOS_PUNTOS>Id()<PUNTO_COMA>
+}
+
+//Complementos
+void vars():{}
+{
+	(Id() | <NUM> | <CADENA> | <VALOR>)
+}
+void MasVars():{}
+{
+	(<COMA>vars())*
+}
+void Ids():{}
+{
+	(Id()MasIds())?
+}
+
+void MasIds():{}
+{
+	(<COMA>Id())*
+}
+void creacion_obj_db():{}
+{
+	<CREACION_OBJ>(creacion_base() | creacion_tabla())
+}
+
+void Instrucciones():{}
+{
+	(
+		def_dato()
+		| inicializar_var()
+		| objetos()
+		| ciclo_for()
+		| ciclo_while()
+		| ciclo_foreach()
+		| pregunta_if()
+		| pregunta_switch()
+		| impresiones()
+		| escribir()
+		| excepciones()
+		| arreglos()
+		| exportaciones()
+		| diccionario()
+		| creacion_obj_db()
+		| detecta_tecla()
+		| ingreso_a_arreglo()
+		| elim_de_arreglo()
+		| elim_tabla_base()
+		| usar_base()
+		| llamada_metodo()
+		| select_reg()
+		| <COMENTARIO>
+	)*
+}
