@@ -12,5 +12,5 @@ Para este proyecto de la materia Lenguajes y Automatas I se creó un lenguaje qu
 ![image](https://user-images.githubusercontent.com/65438145/180349794-1abaf2c2-a2d1-4482-a094-a05d41e109f0.png)
 
 ## Autores
-- Dueñas Nuñez Alan Gabriel @GabrielXIX
+- Dueñas Nuñez Alan Gabriel [@GabrielXIX]
 - Garcia Salas Daniel Alberto @
