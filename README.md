@@ -1,6 +1,6 @@
 # Analizador léxico sintáctico utilizando Javacc.
 
-Para este proyecto de la materia Lenguajes y Automatas I, se creó un lenguaje que sirve para probar el funcionamiento del compilador, sí el codigo a probar no contiene errores se muestra un mensaje de éxito. El programa funciona utilizando los Tokens de Javacc para después declarar las producciones que se tomarán en cuenta en forma de funciones de Java, se omitió el uso de la instruccion LOOKAHEAD debido a que cada producción esta definida cuidadosamente (en ocasiones usando factorización) para que no hubieran ambiguedades.
+Para este proyecto de la materia Lenguajes y Automatas I, se creó un lenguaje que sirve para probar el funcionamiento del compilador, sí el codigo a probar (archivo codigo.txt) no contiene errores se muestra un mensaje de éxito. El programa funciona utilizando los Tokens de Javacc para después declarar las producciones que se tomarán en cuenta en forma de funciones de Java, se omitió el uso de la instruccion LOOKAHEAD debido a que cada producción esta definida cuidadosamente (en ocasiones usando factorización) para que no hubieran ambiguedades.
 
 ## Corrida del programa:
 ![image](https://user-images.githubusercontent.com/65438145/180349564-e1ffddd0-a185-4a03-8539-e6961b4aeabe.png)
